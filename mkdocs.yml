@@ -1,1 +1,52 @@
-site_name: My Docs
+site_name: AlphaGenome Notes
+site_url: https://younghoonna.github.io/AlphaGenome-notes/
+site_description: Notes and walkthroughs on AlphaGenome
+site_author: Younghoon Na
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Background:
+      - Regulatory variants: background/regulatory-variants.md
+      - Non-coding variants: background/noncoding-variants.md
+      - Sequence to function: background/sequence-to-function.md
+  - Paper Overview:
+      - Overview: paper/overview.md
+      - Model overview: paper/model-overview.md
+  - Figures:
+      - Figure 1: figures/figure1.md
+      - Figure 2: figures/figure2.md
+      - Figure 3: figures/figure3.md
+      - Figure 4: figures/figure4.md
+      - Figure 5: figures/figure5.md
+      - Figure 6: figures/figure6.md
+      - Figure 7: figures/figure7.md
+  - Concepts:
+      - ISM: concepts/ism.md
+      - eQTL and GWAS: concepts/eqtl-gwas.md
+      - Credible set and PIP: concepts/credible-set-pip.md
+  - References: references.md

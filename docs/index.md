@@ -1,17 +1,24 @@
-# Welcome to MkDocs
+# AlphaGenome Notes
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This site is a structured summary of my AlphaGenome presentation and follow-up study notes.
 
-## Commands
+## What this site contains
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+- Background concepts for regulatory variant interpretation
+- A walkthrough of the AlphaGenome paper
+- Figure-by-figure explanations
+- Key concepts such as ISM, eQTL, GWAS, credible sets, and PIP
+- A curated reference list
 
-## Project layout
+## Why I made this
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+After finishing my presentation, I wanted to reorganize the material into a form that is easier to revisit and expand.
+Instead of leaving the content only in slides, this site turns it into a readable and searchable archive.
+
+## Suggested reading order
+
+1. Background
+2. Paper Overview
+3. Figures 1–7
+4. Key Concepts
+5. References
