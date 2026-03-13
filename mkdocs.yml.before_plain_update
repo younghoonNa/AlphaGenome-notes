@@ -1,0 +1,83 @@
+site_name: AlphaGenome Notes
+site_url: https://younghoonna.github.io/AlphaGenome-notes/
+site_description: Notes and walkthroughs on AlphaGenome
+site_author: Younghoon Na
+
+repo_name: younghoonNa/AlphaGenome-notes
+repo_url: https://github.com/younghoonNa/AlphaGenome-notes
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Introduction:
+      - Overview: introduction/index.md
+      - Regulatory variants: introduction/01-regulatory-variants.md
+      - Context-resolution trade-off: introduction/02-context-resolution-tradeoff.md
+      - Multi-task trade-off: introduction/03-multitask-tradeoff.md
+      - Introduction summary: introduction/04-summary.md
+  - Background:
+      - Regulatory variants: background/regulatory-variants.md
+      - Non-coding variants: background/noncoding-variants.md
+      - Sequence to function: background/sequence-to-function.md
+  - Paper Overview:
+      - Overview: paper/overview.md
+      - Model overview: paper/model-overview.md
+  - Figures:
+      - Figure 1: figures/figure1.md
+      - Figure 2: figures/figure2.md
+      - Figure 3: figures/figure3.md
+      - Figure 4: figures/figure4.md
+      - Figure 5: figures/figure5.md
+      - Figure 6: figures/figure6.md
+      - Figure 7: figures/figure7.md
+  - Concepts:
+      - ISM: concepts/ism.md
+      - eQTL and GWAS: concepts/eqtl-gwas.md
+      - Credible set and PIP: concepts/credible-set-pip.md
+  - References: references.md

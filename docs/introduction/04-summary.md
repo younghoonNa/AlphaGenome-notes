@@ -1,71 +1,31 @@
-# Introduction summary
+# 4. Introduction summary
 
-<div class="kicker">Introduction · Slide 4</div>
+![Introduction summary](../assets/introduction/slide4-summary.png){ .figure-wide }
 
-![Introduction summary slide](../assets/introduction/04-introduction-summary.png){ .slide-image }
-<p class="small-caption">Intro summary. The problem is hard, existing models face two trade-offs, and AlphaGenome aims to unify long context, base resolution, and diverse outputs.</p>
+<div class="caption">앞의 세 장을 한 문단으로 요약하고, AlphaGenome의 research aim으로 넘어가는 슬라이드입니다.</div>
 
-## 요약 문장
+## 핵심 정리
 
-<div class="summary-card" markdown>
+- 대부분의 인간 유전변이는 **non-coding region**에 존재합니다.
+- 이 영역의 기능 해석은 **context-dependent**하고 **cell-type-specific**하기 때문에 어렵습니다.
+- sequence-to-function 모델은 DNA로부터 기능적 출력을 예측하지만,
+  기존 모델들은 크게 두 가지 trade-off를 가집니다.  
+  **(1) long context vs single-base resolution**, **(2) specialist vs multi-task generalist**
 
-### Introduction summary
+## Research aim
 
-- 대부분의 human genetic variation은 **non-coding region**에 존재하며,
-  이 영역의 functional interpretation은 **regulatory complexity**와 **cell-type specificity** 때문에 어렵습니다.
-- sequence-to-function model은 DNA로부터 functional genomic output을 예측하고,
-  REF–ALT 차이를 통해 variant effect를 추정할 수 있습니다.
-- 그러나 기존 모델은 두 가지 큰 trade-off를 안고 있었습니다.
-  - **single-base resolution vs long-range genomic context**
-  - **task-specific specialization vs multi-task coverage**
+AlphaGenome의 목표는 이 두 trade-off를 동시에 완화하는 것입니다.
 
-</div>
+1. **긴 DNA 문맥**을 본다.  
+2. 가능한 한 **높은 해상도**로 예측한다.  
+3. RNA, accessibility, TF binding, contact map 등 **여러 modality**를 하나의 framework 안에서 다룬다.  
+4. 그리고 이 예측값의 REF–ALT 차이를 이용해 **variant effect**까지 해석한다.
 
-## Research motivation & aim
+<div class="takeaway">
 
-<div class="grid cards" markdown>
+**Takeaway.**  
+Introduction의 결론은 단순합니다.  
+non-coding variant interpretation은 여전히 어렵고, 기존 모델에는 구조적 trade-off가 남아 있습니다.  
+AlphaGenome은 이 문제를 하나의 foundation-style model로 풀어보려는 시도입니다.
 
--   __Aim 1__
-
-    ---
-
-    long-range genomic context와 single-base prediction을 동시에 다룰 수 있는
-    **single foundation model**을 지향합니다.
-
--   __Aim 2__
-
-    ---
-
-    chromatin, TF binding, histone marks, splicing, expression 등 다양한 output을
-    한 프레임워크 안에서 연결합니다.
-
--   __Aim 3__
-
-    ---
-
-    genome track prediction뿐 아니라 variant effect benchmark에서도
-    모델 설계의 타당성을 보여주는 것을 목표로 합니다.
-
-</div>
-
-## 발표용 정리 멘트
-
-<div class="quote-block" markdown>
-
-이 introduction의 핵심은 세 가지입니다.
-
-첫째, 해석이 어려운 변이의 대부분은 non-coding 영역에 있고 그 효과는 context-dependent합니다.  
-둘째, 기존 sequence-to-function 모델들은 **context와 resolution**, **specialist와 generalist** 사이의 trade-off를 안고 있었습니다.  
-셋째, AlphaGenome은 이 두 trade-off를 동시에 완화하는 하나의 foundation model을 지향합니다.
-
-</div>
-
-## 다음 페이지로 연결할 때
-
-- Paper overview로 넘어가면서 **“그래서 AlphaGenome은 무엇을 입력으로 받고 무엇을 예측하는가?”** 로 이어가면 자연스럽습니다.
-- 또는 Figure 1로 바로 넘어가 **모델 아키텍처와 output space**를 소개해도 됩니다.
-
-<div class="slide-nav">
-  <a href="../03-multitask-tradeoff/">← Previous: multi-task trade-off</a>
-  <a href="../../paper/overview/">Next: paper overview →</a>
 </div>
