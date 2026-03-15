@@ -56,7 +56,7 @@ DNA contact map은 더 거친 **2,048 bp** 해상도를 사용합니다.
 teacher를 그대로 앙상블하면 계산 비용이 너무 크기 때문에,  
 저자들은 **knowledge distillation**을 통해 단일 student가 teacher ensemble의 예측 패턴을 따라 배우도록 합니다.
 
-![Figure 1 distillation detail](../assets/figures/figure1/panel-c-distillation-detail.png){ .figure-small }
+![Figure 1 distillation detail](../assets/figures/figure1/panel-c-distillation-detail.png){ .figure-vertical-compact }
 
 <div class="caption">Distillation 상세 도식. 여러 teacher의 soft label을 student가 모방하고, 동시에 hard label도 함께 사용합니다.</div>
 
@@ -83,7 +83,7 @@ teacher를 그대로 앙상블하면 계산 비용이 너무 크기 때문에,
 
 패널 E는 **variant effect prediction** 결과입니다.  
 즉, 변이가 생겼을 때 발현량, splicing, accessibility, TF binding 같은 출력이 어떻게 달라지는지를 예측하는 task입니다.  
-여기서 direction은 증가·감소의 방향을 맞추는 것이고, correlation은 변화의 크기까지 포함한 연속적인 패턴을 얼마나 잘 맞추는지를 보는 지표로 이해하면 됩니다.
+여기서 direction은 증가·감소의 방향을 맞추는 것이고, correlation은 변화의 크기까지 포함한 연속적인 패턴을 얼마나 잘 맞추는지를 보는 지표로 이해하면 됩니다. 직관적으로 `y = ax + b`로 보면 direction은 기울기 `a`의 부호에 가깝고, correlation은 점들이 그 선형 관계를 얼마나 일관되게 따르는지를 반영합니다. 또한 panel D의 benchmark setup은 뒤의 Figure 2에서 다시 이어지고, panel E의 benchmark 결과 해석은 Figure 3, 4, 5에서 더 구체적으로 확장됩니다.
 
 이 variant effect prediction에서도 AlphaGenome은 대부분의 benchmark에서 기존 모델보다 더 좋은 성능을 보였고,  
 논문 요약 기준으로는 **26개 task 중 25개**에서 최고 성능을 기록했습니다.

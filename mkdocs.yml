@@ -39,16 +39,20 @@ extra_css:
 
 nav:
   - Home: index.md
+  - Author Info:
+      - Core Authors: author-info.md
   - Introduction:
       - Overview: introduction/index.md
       - 1. Regulatory variants: introduction/01-regulatory-variants.md
       - 2. Context-resolution trade-off: introduction/02-context-resolution-tradeoff.md
       - 3. Multi-task trade-off: introduction/03-multitask-tradeoff.md
-      - 4. Introduction summary: introduction/04-summary.md
-  - Paper Overview:
-      - Overview: paper/overview.md
   - Figures:
-      - Figure 1: figures/figure1.md
+      - Figure 1 - Model Architecture & Training Info:
+          - Overview: figures/figure1.md
+          - Panel A: figures/figure1-panel-a.md
+          - Panel A Supplementary Notes: figures/figure1-panel-a-supplementary.md
+          - Panel B & C: figures/figure1-panel-bc.md
+          - Panel D & E: figures/figure1-panel-d.md
       - Figure 2: figures/figure2.md
       - Figure 3: figures/figure3.md
       - Figure 4: figures/figure4.md
