@@ -9,7 +9,7 @@ This file lists image assets currently found under `docs/assets`.
 
 ## Detected asset files
 
-- docs/assets/dna-logo.svg
+- docs/assets/DNA_logo_png.png
 - docs/assets/figures/figure1/panel-a-architecture.png
 - docs/assets/figures/figure1/panel-c-distillation-detail.png
 - docs/assets/figures/figure1/panels-bc-training.png
@@ -39,4 +39,3 @@ This file lists image assets currently found under `docs/assets`.
 - docs/assets/introduction/slide3-full.png
 - docs/assets/introduction/slide3-pangolin.png
 - docs/assets/introduction/slide4-summary.png
-

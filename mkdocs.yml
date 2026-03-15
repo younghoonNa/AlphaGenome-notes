@@ -8,8 +8,8 @@ repo_name: younghoonNa/AlphaGenome-notes
 theme:
   name: material
   language: ko
-  logo: assets/dna-logo.svg
-  favicon: assets/dna-logo.svg
+  logo: assets/DNA_logo_png.png
+  favicon: assets/DNA_logo_png.png
   palette:
     - scheme: default
       primary: indigo
