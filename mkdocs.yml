@@ -53,7 +53,8 @@ nav:
           - Panel A Supplementary Notes: figures/figure1-panel-a-supplementary.md
           - Panel B & C: figures/figure1-panel-bc.md
           - Panel D & E: figures/figure1-panel-d.md
-      - Figure 2: figures/figure2.md
+      - Figure 2 - Qualitative & Quantitative Analysis:
+          - Overview: figures/figure2.md
       - Figure 3: figures/figure3.md
       - Figure 4: figures/figure4.md
       - Figure 5: figures/figure5.md

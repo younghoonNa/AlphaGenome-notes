@@ -12,9 +12,9 @@
 
 ??? note "Which tasks were not SOTA?"
 
-    Figure 1의 headline 결과는 각각 **22/24**와 **25/26**이므로, AlphaGenome이 거의 모든 benchmark에서 strongest baseline을 넘어서지만, 일부 평가지표에서 성능이 떨어짐을 보여준다.
+    Figure 1의 headline 결과는 각각 **Track prediction (Panel D) 22/24**와 **Variant effect prediction (Panel E) 25/26**이므로, AlphaGenome이 거의 모든 benchmark에서 strongest baseline을 넘어서지만, 일부 평가지표에서 성능이 떨어짐을 보여준다.
 
-    **Track prediction (Panel D)** 에서 메인 figure에 직접 보이는 예외는 **CAGE coverage at 128 bp** 이다. 이 항목에서는 비교 모델이 **Enformer**이고, relative improvement가 **−0.3**으로 표시되어 AlphaGenome이 약간 뒤처진다.
+    Supplementary CSV를 기준으로 보면, Track prediction (Panel D)에서 strongest baseline을 넘지 못한 task는 Display되어있는 CAGE 항목을 포함해 총 2개다. 다른 하나는 splicing task인 **splice_site_prediction_annotated_human (1 bp, auPRC)** 로, strongest baseline인 **DeltaSplice** 가 **0.8504**, AlphaGenome이 **0.8194**를 기록해 relative improvement는 **−3.65%**였다. 나머지 예외인 **CAGE (128 bp, pearsonr)** 에서는 **Enformer (human fine-tuned)** 이 **0.711985**, AlphaGenome이 **0.709744**로 relative improvement는 **−0.315%**였다.
 
     **Variant effect prediction (Panel E)** 에서는 유일한 예외가 **MFASS** benchmark이다. 이 task의 strongest baseline은 **Pangolin**이며, Figure 1e에서는 relative improvement가 **−5.7**로 표시된다.
 

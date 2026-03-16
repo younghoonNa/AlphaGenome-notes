@@ -112,6 +112,48 @@
   margin: 1rem 0;
 }
 
+.term-glossary {
+  margin: 1rem 0 1.2rem 0;
+  padding: .8rem .95rem;
+  border: 1px solid var(--ag-border);
+  border-radius: 10px;
+  background: #fbfcff;
+  font-size: .75rem;
+  line-height: 1.65;
+}
+
+.term-glossary p {
+  margin: .3rem 0;
+}
+
+.term-glossary strong {
+  color: var(--ag-blue);
+  font-weight: 800;
+}
+
+.term-glossary__title {
+  margin: 0 0 .45rem 0;
+  font-size: .92rem;
+  line-height: 1.35;
+}
+
+.term-glossary__title strong {
+  color: #1e3a8a;
+  font-size: 1.02rem;
+  letter-spacing: -.01em;
+}
+
+.term-glossary__key-diff {
+  margin-top: .55rem;
+  padding-top: .45rem;
+  border-top: 1px solid var(--ag-border);
+}
+
+.term-glossary__key-diff strong {
+  color: #b45309;
+  font-weight: 800;
+}
+
 .panel-label {
   display: inline-block;
   font-weight: 700;
