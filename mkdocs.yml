@@ -15,7 +15,6 @@ theme:
       primary: indigo
       accent: blue
   features:
-    - navigation.sections
     - navigation.top
     - search.suggest
     - search.highlight
