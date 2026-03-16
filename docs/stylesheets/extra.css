@@ -259,7 +259,47 @@
   line-height: 1.5;
 }
 
-.author-card__links a {
+.author-card__icon-links {
+  display: flex;
+  gap: .55rem;
+  margin: .1rem 0 .35rem 0;
+  align-items: center;
+}
+
+.author-card__icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid var(--ag-border);
+  border-radius: 999px;
+  background: #fff;
+  color: #111827;
+  box-shadow: 0 4px 12px rgba(23, 58, 154, 0.08);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  line-height: 0;
+}
+
+.author-card__icon-link:hover {
+  transform: translateY(-1px);
+  border-color: #b9cdfa;
+  box-shadow: 0 8px 18px rgba(23, 58, 154, 0.12);
+}
+
+.author-card__icon-link svg {
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+}
+
+.author-card__icon-link--scholar {
+  color: #1a73e8;
+}
+
+.author-card__links a:not(.author-card__icon-link) {
   display: inline-block;
   color: var(--ag-blue-2);
   width: fit-content;

@@ -16,7 +16,6 @@ theme:
       accent: blue
   features:
     - navigation.sections
-    - navigation.expand
     - navigation.top
     - search.suggest
     - search.highlight
@@ -64,8 +63,10 @@ nav:
       - Regulatory variants: background/regulatory-variants.md
       - Non-coding variants: background/noncoding-variants.md
       - Sequence to function: background/sequence-to-function.md
-  - Concepts:
       - ISM: concepts/ism.md
       - eQTL and GWAS: concepts/eqtl-gwas.md
       - Credible set and PIP: concepts/credible-set-pip.md
-  - References: references.md
+  - Key points:
+      - Modeling points: concepts/modeling-points.md
+  - References:
+      - Overview: references.md
