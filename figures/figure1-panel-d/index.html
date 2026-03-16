@@ -801,6 +801,57 @@
   
   
   
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 2 - Qualitative & Quantitative Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Figure 2 - Qualitative & Quantitative Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../figure2/" class="md-nav__link">
         
@@ -809,7 +860,7 @@
   <span class="md-ellipsis">
     
   
-    Figure 2
+    Overview
   
 
     
@@ -818,6 +869,14 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1333,8 +1392,8 @@
 <p>이 variant effect prediction에서도 AlphaGenome은 대부분의 benchmark에서 기존 모델보다 더 좋은 성능을 보였고, 논문 요약 기준으로는 <strong>26개 task 중 25개</strong>에서 최고 성능을 기록했습니다.</p>
 <details class="note">
 <summary>Which tasks were not SOTA?</summary>
-<p>Figure 1의 headline 결과는 각각 <strong>22/24</strong>와 <strong>25/26</strong>이므로, AlphaGenome이 거의 모든 benchmark에서 strongest baseline을 넘어서지만, 일부 평가지표에서 성능이 떨어짐을 보여준다.</p>
-<p><strong>Track prediction (Panel D)</strong> 에서 메인 figure에 직접 보이는 예외는 <strong>CAGE coverage at 128 bp</strong> 이다. 이 항목에서는 비교 모델이 <strong>Enformer</strong>이고, relative improvement가 <strong>−0.3</strong>으로 표시되어 AlphaGenome이 약간 뒤처진다.</p>
+<p>Figure 1의 headline 결과는 각각 <strong>Track prediction (Panel D) 22/24</strong>와 <strong>Variant effect prediction (Panel E) 25/26</strong>이므로, AlphaGenome이 거의 모든 benchmark에서 strongest baseline을 넘어서지만, 일부 평가지표에서 성능이 떨어짐을 보여준다.</p>
+<p>Supplementary CSV를 기준으로 보면, Track prediction (Panel D)에서 strongest baseline을 넘지 못한 task는 Display되어있는 CAGE 항목을 포함해 총 2개다. 다른 하나는 splicing task인 <strong>splice_site_prediction_annotated_human (1 bp, auPRC)</strong> 로, strongest baseline인 <strong>DeltaSplice</strong> 가 <strong>0.8504</strong>, AlphaGenome이 <strong>0.8194</strong>를 기록해 relative improvement는 <strong>−3.65%</strong>였다. 나머지 예외인 <strong>CAGE (128 bp, pearsonr)</strong> 에서는 <strong>Enformer (human fine-tuned)</strong> 이 <strong>0.711985</strong>, AlphaGenome이 <strong>0.709744</strong>로 relative improvement는 <strong>−0.315%</strong>였다.</p>
 <p><strong>Variant effect prediction (Panel E)</strong> 에서는 유일한 예외가 <strong>MFASS</strong> benchmark이다. 이 task의 strongest baseline은 <strong>Pangolin</strong>이며, Figure 1e에서는 relative improvement가 <strong>−5.7</strong>로 표시된다.</p>
 </details>
 <div class="takeaway">
