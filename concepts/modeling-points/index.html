@@ -1,0 +1,2569 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AlphaGenome paper notes">
+      
+      
+        <meta name="author" content="Younghoon Na">
+      
+      
+        <link rel="canonical" href="https://younghoonNa.github.io/AlphaGenome-notes/concepts/modeling-points/">
+      
+      
+        <link rel="prev" href="../credible-set-pip/">
+      
+      
+        <link rel="next" href="../../references/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/DNA_logo_png.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Modeling points - AlphaGenome Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ml-alphagenome-modeling-points" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="AlphaGenome Notes" class="md-header__button md-logo" aria-label="AlphaGenome Notes" data-md-component="logo">
+      
+  <img src="../../assets/DNA_logo_png.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AlphaGenome Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modeling points
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/younghoonNa/AlphaGenome-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    younghoonNa/AlphaGenome-notes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AlphaGenome Notes" class="md-nav__button md-logo" aria-label="AlphaGenome Notes" data-md-component="logo">
+      
+  <img src="../../assets/DNA_logo_png.png" alt="logo">
+
+    </a>
+    AlphaGenome Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/younghoonNa/AlphaGenome-notes" title="저장소로 이동" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    younghoonNa/AlphaGenome-notes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Author Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Author Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../author-info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Authors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/01-regulatory-variants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Regulatory variants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/02-context-resolution-tradeoff/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Context-resolution trade-off
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/03-multitask-tradeoff/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Multi-task trade-off
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figures
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Figures
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 1 - Model Architecture & Training Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Figure 1 - Model Architecture & Training Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure1-panel-a/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Panel A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure1-panel-a-supplementary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Panel A Supplementary Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure1-panel-bc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Panel B & C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure1-panel-d/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Panel D & E
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 2 - Qualitative & Quantitative Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Figure 2 - Qualitative & Quantitative Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../figures/figure7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figure 7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Background
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Background
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../background/regulatory-variants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regulatory variants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../background/noncoding-variants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Non-coding variants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../background/sequence-to-function/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequence to function
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ISM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eqtl-gwas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eQTL and GWAS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credible-set-pip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credible set and PIP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key points
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Key points
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modeling points
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modeling points
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        먼저 문제를 ML 문제로 다시 쓰면
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        한눈에 보는 설계 포인트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-pure-transformer-u-net-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Pure transformer가 아니라 U-Net + transformer인 이유
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Pure transformer가 아니라 U-Net + transformer인 이유">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 그냥 transformer 하나로 끝내지 않았을까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 U-Net 형태가 중요한가?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-representation-topology-output-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Representation topology를 output topology에 맞췄다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Representation topology를 output topology에 맞췄다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1d-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1D와 2D 표현을 분리하되, 반복적으로 상호작용시키는 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splice-junction-splice-junction-head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splice junction 예측을 위한 별도의 Splice junction head를 설계
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-parallelism-1-mb-1-bp-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence parallelism은 1 Mb + 1 bp 학습을 가능하게 만든 mechanism이다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence parallelism은 1 Mb + 1 bp 학습을 가능하게 만든 mechanism이다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mb-context-1-bp-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 Mb context와 1 bp output은 동시에 비싼 요구사항이다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-mb-1-mb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심은 “1 Mb를 넣었다”가 아니라 “1 Mb로 학습했다”는 점이다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alphagenome-architecture-paper-systems-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        따라서 AlphaGenome은 architecture paper이면서 동시에 systems paper의 성격도 가진다
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-multi-resolution-output-task-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Multi-resolution output은 단순한 타협이 아니라 task alignment다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Multi-resolution output은 단순한 타협이 아니라 task alignment다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모든 task가 같은 resolution 이득을 받는 것은 아니다
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-distillation-compression-variant-robustness-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Distillation은 단순한 compression이 아니라, variant robustness를 student에 이식하는 과정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Distillation은 단순한 compression이 아니라, variant robustness를 student에 이식하는 과정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutation-distill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 mutation을 넣고 distill한다는 것의 의미
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        공학적으로 요약하자면
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-multimodal-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Multimodal learning은 “편해서”가 아니라 실제로 도움이 된다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Multimodal learning은 “편해서”가 아니라 실제로 도움이 된다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 결과
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-long-context-train-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Long context는 train-time에 확보하는 것이 더 중요하다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Long context는 train-time에 확보하는 것이 더 중요하다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-internalized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) 긴 문맥은 학습 단계에서 실제로 internalized되어야 한다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-serving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) 한번 길게 학습해 두면 serving에서는 유연해진다
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 이 논문이 남기는 설계 법칙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 이 논문이 남기는 설계 법칙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 모든 task를 같은 출력 공간에 넣지 말 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-local-global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) local과 global을 같은 모듈 하나에 억지로 맡기지 말 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-honest-evaluation-model-deployable-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) honest evaluation model과 deployable model을 분리할 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-distillation-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (4) distillation은 latency 절감 이상의 역할을 할 수 있다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-multimodal-learning-integrative-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (5) multimodal learning은 integrative task에서 특히 강하다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-train" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (6) 가능하면 train은 길게 하라
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        마무리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-anchors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source anchors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    References
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        먼저 문제를 ML 문제로 다시 쓰면
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        한눈에 보는 설계 포인트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-pure-transformer-u-net-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Pure transformer가 아니라 U-Net + transformer인 이유
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Pure transformer가 아니라 U-Net + transformer인 이유">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 그냥 transformer 하나로 끝내지 않았을까?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        왜 U-Net 형태가 중요한가?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-representation-topology-output-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Representation topology를 output topology에 맞췄다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Representation topology를 output topology에 맞췄다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1d-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1D와 2D 표현을 분리하되, 반복적으로 상호작용시키는 구조
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#splice-junction-splice-junction-head" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splice junction 예측을 위한 별도의 Splice junction head를 설계
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-parallelism-1-mb-1-bp-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence parallelism은 1 Mb + 1 bp 학습을 가능하게 만든 mechanism이다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence parallelism은 1 Mb + 1 bp 학습을 가능하게 만든 mechanism이다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mb-context-1-bp-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 Mb context와 1 bp output은 동시에 비싼 요구사항이다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-mb-1-mb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심은 “1 Mb를 넣었다”가 아니라 “1 Mb로 학습했다”는 점이다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alphagenome-architecture-paper-systems-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        따라서 AlphaGenome은 architecture paper이면서 동시에 systems paper의 성격도 가진다
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-multi-resolution-output-task-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Multi-resolution output은 단순한 타협이 아니라 task alignment다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Multi-resolution output은 단순한 타협이 아니라 task alignment다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        모든 task가 같은 resolution 이득을 받는 것은 아니다
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-distillation-compression-variant-robustness-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Distillation은 단순한 compression이 아니라, variant robustness를 student에 이식하는 과정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Distillation은 단순한 compression이 아니라, variant robustness를 student에 이식하는 과정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutation-distill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        입력 mutation을 넣고 distill한다는 것의 의미
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        공학적으로 요약하자면
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-multimodal-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Multimodal learning은 “편해서”가 아니라 실제로 도움이 된다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Multimodal learning은 “편해서”가 아니라 실제로 도움이 된다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        핵심 결과
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-long-context-train-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Long context는 train-time에 확보하는 것이 더 중요하다
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Long context는 train-time에 확보하는 것이 더 중요하다">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-internalized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) 긴 문맥은 학습 단계에서 실제로 internalized되어야 한다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-serving" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) 한번 길게 학습해 두면 serving에서는 유연해진다
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 이 논문이 남기는 설계 법칙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 이 논문이 남기는 설계 법칙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (1) 모든 task를 같은 출력 공간에 넣지 말 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-local-global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (2) local과 global을 같은 모듈 하나에 억지로 맡기지 말 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-honest-evaluation-model-deployable-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (3) honest evaluation model과 deployable model을 분리할 것
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-distillation-latency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (4) distillation은 latency 절감 이상의 역할을 할 수 있다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-multimodal-learning-integrative-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (5) multimodal learning은 integrative task에서 특히 강하다
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-train" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (6) 가능하면 train은 길게 하라
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        마무리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-anchors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source anchors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ml-alphagenome-modeling-points">ML 관점에서 바라보는 AlphaGenome Modeling Points<a class="headerlink" href="#ml-alphagenome-modeling-points" title="Permanent link">&para;</a></h1>
+<p>이 페이지는 Figure별 biological story와는 조금 다른 각도에서, <strong>ML 관점에서 AlphaGenome의 강점이 무엇인지</strong>를 따로 정리한 노트입니다. 특히 <strong>Figure 1</strong>, <strong>Figure 7</strong>, <strong>Extended Data Fig. 1</strong>, 그리고 본문에서 연결해 주는 <strong>Supplementary Information</strong>의 메시지를 묶어서, 아키텍처·학습 관점의 포인트만 뽑아 봅니다.</p>
+<div class="admonition abstract">
+<p class="admonition-title">한 줄 요약</p>
+<p>AlphaGenome의 핵심은 단순히 “큰 DNA 모델”, “단순 1 Mb DNA 서열 입력” 모델이 아닙니다. <br>
+이 모델은 <strong>1 Mb 문맥</strong>, <strong>1 bp 수준의 localization</strong>, <strong>11개 modality</strong>, <strong>1D/2D/pairwise output</strong>, <strong>variant-serving latency</strong>처럼 서로 충돌하기 쉬운 요구사항을 한 모델 안에서 동시에 만족시키려는 시도입니다. <br>
+그래서 읽는 포인트도 “다양한 Modality에서 성능이 높다”보다 <strong>어떤 engineering compromise를 어떤 구조로 풀었는가</strong>에 있습니다.</p>
+</div>
+<h2 id="ml">먼저 문제를 ML 문제로 다시 쓰면<a class="headerlink" href="#ml" title="Permanent link">&para;</a></h2>
+<p>AlphaGenome이 풀려는 문제를 생물학 용어를 잠깐 접어두고 ML 관점에서 보면 다음과 같습니다.</p>
+<ul>
+<li>입력은 <strong>1 Mb DNA sequence + organism identity</strong> 입니다.</li>
+<li>출력은 <strong>human 5,930개 / mouse 1,128개 genome track</strong>, 총 <strong>11개 modality이며, 각 modality는 1bp, 128bp, 2,048bp의 다양한 해상도를</strong> 가집니다.</li>
+<li>Contact map과 같이 <strong>2차원 pairwise 구조</strong>예측도 존재하며 그 외의 출력은 <strong>1차원 track</strong>입니다.</li>
+<li>splicing의 경우에는 개별 site 예측 (donor, acceptor 구분, 사용 빈도)만 하는 것이 아니라 <strong>donor–acceptor pair</strong>의 사용 빈도 즉 <strong>junction</strong>도 다뤄야 합니다.</li>
+<li>게다가 이 모든 것을 variant scoring까지 고려한 <strong>실제 serving 가능한 형태</strong>로 만들어야 합니다.</li>
+</ul>
+<p>즉, 이 논문은 단순한 “one more sequence-to-function model”이라기보다, <strong>context length</strong>, <strong>resolution</strong>, <strong>output topology</strong>, <strong>multimodal training</strong>, <strong>deployment cost</strong>를 동시에 맞추는 설계 문제로 읽는 편이 더 정확합니다.</p>
+<h2 id="_1">한눈에 보는 설계 포인트<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>설계 포인트</th>
+<th>논문에서 실제로 한 선택</th>
+<th>공대 관점에서 왜 재미있는가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hybrid backbone</td>
+<td><strong>U-Net-style encoder–transformer–decoder</strong></td>
+<td>local motif와 long-range dependency를 분리</td>
+</tr>
+<tr>
+<td>Multi-resolution</td>
+<td><strong>1 bp / 128 bp / 2,048 bp</strong> 해상도별 head</td>
+<td>모든 task를 같은 resolution에 억지로 맞추지 않음</td>
+</tr>
+<tr>
+<td>Output topology 분리</td>
+<td><strong>1D embedding</strong>과 <strong>2D pairwise embedding</strong>을 따로 운용</td>
+<td>contact map을 단순한 1D 채널로 취급하지 않음</td>
+</tr>
+<tr>
+<td>Splicing 전용 구조</td>
+<td>splice junction은 <strong>exon-exon interaction</strong>으로 예측</td>
+<td>general backbone 위에 track-specific head결합</td>
+</tr>
+<tr>
+<td>Sequence parallelism</td>
+<td><strong>1 Mb를 131-kb chunk</strong>로 나눠 <strong>8개 TPU v3</strong>에서 처리</td>
+<td>1 Mb 입력과 base-level 예측 가능</td>
+</tr>
+<tr>
+<td>Two-stage training</td>
+<td>1. <strong>fold-specific pretraining</strong> <br> 2. <strong>all-fold teachers + distilled student</strong></td>
+<td>“공정한 평가용 모델”과 “배포용 모델”을 분리</td>
+</tr>
+<tr>
+<td>Distillation with mutations</td>
+<td>teacher 출력을 모방 <br> <strong>augmented + random mutation</strong> 활용</td>
+<td>변이 효과 예측을 실제 변이 데이터 없이 학습</td>
+</tr>
+<tr>
+<td>Multimodal learning</td>
+<td>full multimodal vs single-modality ablation</td>
+<td>shared representation 이점을 실험적으로 확인</td>
+</tr>
+<tr>
+<td>Long-context rule</td>
+<td><strong>1 Mb로 train하고 1 Mb로 infer</strong>할 때 가장 좋음</td>
+<td>inference에서 잘라서 짧게/유연하게 사용가능</td>
+</tr>
+</tbody>
+</table>
+<h2 id="model-architecture">Model Architecture<a class="headerlink" href="#model-architecture" title="Permanent link">&para;</a></h2>
+<details class="note">
+<summary>Extended Figure 1: AlphaGenome model architecture</summary>
+<p><img alt="Extended Figure 1" class="figure-wide" src="../../assets/figures/concept/Extended%20Figure%201.png" /></p>
+</details>
+<h2 id="1-pure-transformer-u-net-transformer">1. Pure transformer가 아니라 U-Net + transformer인 이유<a class="headerlink" href="#1-pure-transformer-u-net-transformer" title="Permanent link">&para;</a></h2>
+<p>AlphaGenome의 backbone은 <strong>U-Net-inspired architecture</strong> 입니다. 구체적으로는 <strong>Encoder → Transformer Tower → Decoder</strong> 구조이고, encoder는 sequence를 downsample하고, transformer는 더 거친 해상도에서 긴 거리 상호작용을 다루고, decoder는 다시 resolution을 복원해 task-specific head로 넘깁니다.</p>
+<h3 id="transformer">왜 그냥 transformer 하나로 끝내지 않았을까?<a class="headerlink" href="#transformer" title="Permanent link">&para;</a></h3>
+<p>DNA regulatory modeling에서는 두 종류의 정보가 동시에 필요합니다.</p>
+<ol>
+<li>
+<p><strong>매우 국소적인 정보</strong><br />
+   예를 들면 splice donor/acceptor motif, TF motif, exon boundary처럼 염기 하나 또는 아주 짧은 motif 단위의 local signal입니다.</p>
+</li>
+<li>
+<p><strong>상대적으로 멀리 떨어진 정보</strong><br />
+   enhancer–promoter interaction처럼 수 kb~수백 kb 떨어진 위치끼리의 관계입니다.</p>
+</li>
+</ol>
+<p>convolution은 1번에 강하고, transformer는 2번에 강합니다. AlphaGenome은 이 둘을 억지로 하나의 inductive bias로 통일하지 않고, <strong>local pattern은 convolution</strong>, <strong>distal dependency는 transformer</strong>로 역할 분담을 시킵니다.</p>
+<h3 id="u-net">왜 U-Net 형태가 중요한가?<a class="headerlink" href="#u-net" title="Permanent link">&para;</a></h3>
+<p>Extended Data Fig. 1 설명을 보면 encoder는 <strong>1 bp에서 128 bp까지 progressively downsample</strong>하고, decoder는 <strong>skip connection</strong>을 이용해 다시 <strong>1 bp</strong>까지 올립니다. 이 구조의 장점은 분명합니다.</p>
+<ul>
+<li>아래로 갈수록 receptive field를 넓혀 <strong>global context</strong>를 보기 쉽고</li>
+<li>위로 올라오면서 skip connection을 써서 <strong>fine localization</strong>을 회복할 수 있습니다.</li>
+</ul>
+<p>즉, 이 구조는 <strong>“멀리 떨어진 조절 정보는 봐야 하는데, exon boundary처럼 날카로운 위치 정보도 놓치면 안 된다”</strong> 라는 문제에 꽤 자연스러운 해법입니다.</p>
+<details class="note">
+<summary>Extended Figure 1 ab: AlphaGenome model architecture (Overall)</summary>
+<p><img alt="Extended Figure 1" class="figure-wide" src="../../assets/figures/concept/Extended%20Figure%201ab.png" /></p>
+</details>
+<div class="note-box">
+AlphaGenome의 핵심적인 새로움은 U-Net이나 Transformer라는 개별 구성 요소 자체에 있는 것이 아니다. 오히려 중요한 점은, <span class="key-term">긴 문맥(long-range context), 염기 수준의 정밀한 해상도(base-level resolution), 멀티모달 예측(multimodality), 그리고 실제 학습이 가능한 계산 효율성(computational feasibility)</span>이라는 네 가지 요구를 동시에 만족시키는 형태로 이 구조를 정교하게 결합했다는 데 있다. 또한 AlphaGenome의 차별성은 단순한 backbone 수준에만 머무르지 않고, <span class="key-term">splice junction 예측을 위한 전용 head와 2D contact map 예측을 위한 transformer 기반 설계</span>까지 포함한다는 점에서도 드러난다. 이러한 부분은 뒤에서 각 결과 figure를 설명하면서 더 구체적으로 다루겠다.
+</div>
+
+<h2 id="2-representation-topology-output-topology">2. Representation topology를 output topology에 맞췄다<a class="headerlink" href="#2-representation-topology-output-topology" title="Permanent link">&para;</a></h2>
+<p>AlphaGenome의 또 하나의 특징으로</p>
+<ol>
+<li>1D 표현과 2D Contact map 표현을 분리하였으며</li>
+<li>1번을 바탕으로 1D/2D 예측 결과를 다시 학습에 활용한다는 정보입니다.</li>
+</ol>
+<h3 id="1d-2d">1D와 2D 표현을 분리하되, 반복적으로 상호작용시키는 구조<a class="headerlink" href="#1d-2d" title="Permanent link">&para;</a></h3>
+<p>우선 본문에서는 이 모델이 두 종류의 representation을 만든다고 설명합니다.</p>
+<ul>
+<li><strong>1D embeddings</strong>: 1 bp / 128 bp 해상도의 linear genome 표현</li>
+<li><strong>2D embeddings</strong>: 2,048 bp 해상도의 pairwise interaction 표현</li>
+</ul>
+<p>RNA-seq, ATAC, DNase, CAGE, histone mark 같은 출력은 기본적으로 genome을 따라 흘러가는 1차원 signal입니다. 이런 출력은 1D embedding에서 linear head로 예측하는 것이 자연스럽습니다.</p>
+<p>반면 contact map은 “게놈의 i 위치와 j 위치가 얼마나 자주 접촉하는가”를 묻는 pairwise matrix입니다. AlphaGenome은 중앙 transformer 단계에서 pairwise (2D) representation을 만들고, 이 2D representation을 contact map 예측에 사용할 뿐 아니라, 이를 attention bias 형태로 다시 sequence update에 반영함으로써 1D track 예측에도 간접적으로 활용하는 구조를 보여줍니다.</p>
+<p>실제로 패널 B의 transformer tower를 보면 pair update block이 반복적으로 삽입되어 있으며, 공개된 구현 기준으로는 sequence block 사이에서 교대로(alternating하게) 2D 정보를 갱신하고 이를 다시 1D sequence representation update에 반영하는 구조임을 확인할 수 있습니다. 또한 패널 A와 패널 B의 transformer tower output를 보면, 이러한 2D representation으로부터 만들어지는 contact map 예측은 최종적으로 독립적인 head를 통해 출력된다는 것을 알 수 있습니다.</p>
+<p>즉, 이건 단순한 implementation이 아니라 output의 topology에 맞게 latent space를 분리하면서도, 1D와 2D representation이 trunk 내부에서는 반복적으로 상호작용하도록 설계한 구조라고 볼 수 있습니다. 다시 말해, AlphaGenome은 2D contact map에 대한 background knowledge를 별도 latent space로 반영하면서도, 그 정보를 다시 1D sequence modeling에 연결하는 방향으로 설계되었다고 해석할 수 있습니다.</p>
+<h3 id="splice-junction-splice-junction-head">Splice junction 예측을 위한 별도의 Splice junction head를 설계<a class="headerlink" href="#splice-junction-splice-junction-head" title="Permanent link">&para;</a></h3>
+<p>본 논문의 피겨 3a에서는 Splice junction 예측을 다른 모델과 다르게 사용하는 것을 모델링 포인트로 활용한다. 더 나아가 저자들은 이 Splice junction 예측을 위해 추가적인 모델링 기법을 활용했는데, 바로 아래 그림에 존재하는 Splice junction head이다. </p>
+<details class="note">
+<summary>Extended Figure 1 b: Splice junction head</summary>
+<p><img alt="Extended Figure 1" class="figure-small" src="../../assets/figures/concept/Extended%20Figure%201b_splice_junction.png" /></p>
+</details>
+<p>논문은 splice junction count prediction이 다른 genomic track처럼 embedding에 linear transformation만 거는 방식이 아니라, <strong>donor–acceptor pair의 상호작용을 포착하는 별도 메커니즘</strong>을 쓴다고 명시합니다.</p>
+<p>즉, 저자들은 splicing을 “RNA-seq coverage의 부산물”로 보지 않았습니다. 오히려</p>
+<ul>
+<li>splice site 존재 여부</li>
+<li>splice site usage</li>
+<li>splice junction count</li>
+</ul>
+<p>처럼 서로 다른 수준의 structure를 나눠서 다루고,<br />
+junction은 특히 <strong>pair relation</strong>이라는 사실을 아키텍처 수준에서 반영했습니다.</p>
+<p>이 점이 AlphaGenome의 splicing 성능이 강한 이유를 설명하는 중요한 실마리이기도 합니다.</p>
+<h2 id="sequence-parallelism-1-mb-1-bp-mechanism">Sequence parallelism은 1 Mb + 1 bp 학습을 가능하게 만든 mechanism이다<a class="headerlink" href="#sequence-parallelism-1-mb-1-bp-mechanism" title="Permanent link">&para;</a></h2>
+<p>논문에서는 이 부분을 길게 설명하지 않지만, 공대 관점에서 보면 sequence parallelism은 AlphaGenome의 성능에 덧붙여진 implementation detail이 아니라 모델 자체를 성립시키는 전제에 가깝다. Figure 1 legend는 1 Mb 입력을 131-kb chunk로 나누어 여러 device에 분산한다고 설명하고, 본문 역시 full 1-Mb sequence에 대한 base-pair-resolution training 이 eight interconnected TPU v3 devices 위의 sequence parallelism으로 가능해졌다고 명시한다. 즉, AlphaGenome의 1 Mb 문맥과 1 bp supervision은 backbone 아이디어만으로 얻어진 것이 아니라, 이를 실제로 학습 가능한 계산 그래프로 바꾸는 분산 학습 전략과 함께 제안된 것이다</p>
+<h3 id="1-mb-context-1-bp-output">1 Mb context와 1 bp output은 동시에 비싼 요구사항이다<a class="headerlink" href="#1-mb-context-1-bp-output" title="Permanent link">&para;</a></h3>
+<p>AlphaGenome이 풀려는 문제는 단순히 “긴 서열을 본다” 수준이 아니다. 이 모델은 1 Mb 입력으로 distal regulatory interaction을 포착해야 하고, 동시에 RNA-seq, splice site, splice junction, accessibility처럼 일부 task에서는 1 bp 수준의 localization 도 유지해야 한다. Extended Data Fig. 1을 보면 encoder는 1 bp 해상도를 128 bp까지 downsample 하고, transformer tower는 그 해상도에서 long-range dependency를 처리한 뒤, decoder가 다시 1 bp까지 복원 해서 task-specific head로 보낸다. 표현 측면에서는 매우 자연스러운 설계이지만, 시스템 측면에서는 긴 sequence activation, inter-device communication, 그리고 high-resolution reconstruction을 함께 감당해야 하는 구조이다. 따라서 여기서 sequence parallelism은 속도를 조금 높이는 최적화라기보다, 이 전체 계산을 실제로 학습 가능한 범위 안으로 끌고 오는 핵심 장치라고 보는 편이 맞다.</p>
+<h3 id="1-mb-1-mb">핵심은 “1 Mb를 넣었다”가 아니라 “1 Mb로 학습했다”는 점이다<a class="headerlink" href="#1-mb-1-mb" title="Permanent link">&para;</a></h3>
+<p>이 해석은 Figure 7b의 ablation과도 잘 맞는다. 저자들은 training sequence length와 inference context length를 바꾸어 비교했고, 1-Mb input으로 학습하고 inference에서도 full 1-Mb context를 사용할 때 전반적으로 가장 좋은 결과를 얻었다고 보고한다. 또한 1 Mb로 학습한 모델은 더 짧은 inference context에서도 어느 정도 성능을 유지하지만, 최적점 자체는 full 1 Mb에 놓여 있다. 즉, long context는 사후적으로 덧붙인 inference-time setting이 아니라 실제 성능을 만드는 학습 regime의 일부이며, sequence parallelism은 바로 그 regime를 가능하게 만든 system-level choice라고 해석하는 것이 자연스럽다.</p>
+<h3 id="alphagenome-architecture-paper-systems-paper">따라서 AlphaGenome은 architecture paper이면서 동시에 systems paper의 성격도 가진다<a class="headerlink" href="#alphagenome-architecture-paper-systems-paper" title="Permanent link">&para;</a></h3>
+<p>그래서 AlphaGenome을 단순히 “U-Net + transformer backbone 위에 여러 output head를 붙인 multimodal model” 로만 읽으면 핵심의 절반만 보게 된다. 이 논문의 진짜 포인트는 long-range context, base-level resolution, multimodal output, 1D/2D topology 처럼 서로 계산적으로 충돌하기 쉬운 요구를 하나의 모델 안에 담았을 뿐 아니라, 그것이 실제 학습과 추론에서 돌아가도록 만들었다는 데 있다. 그 의미에서 sequence parallelism은 부가 기술이 아니라, AlphaGenome의 modeling claim을 현실적인 training system으로 번역해 준 핵심 enabling trick이라고 보는 편이 더 정확하다.</p>
+<h2 id="4-multi-resolution-output-task-alignment">4. Multi-resolution output은 단순한 타협이 아니라 task alignment다<a class="headerlink" href="#4-multi-resolution-output-task-alignment" title="Permanent link">&para;</a></h2>
+<ul>
+<li>RNA-seq, CAGE, PRO-cap, splicing, ATAC, DNase 등은 더 세밀한 <strong>1 bp</strong></li>
+<li>TF ChIP-seq, histone ChIP-seq은 <strong>128 bp</strong></li>
+<li>contact map은 <strong>2,048 bp</strong></li>
+</ul>
+<p>이런 식으로 <strong>assay 성격에 맞춰 output resolution을 다르게 둡니다</strong>. 겉으로 보면 그냥 계산 절약처럼 보일 수 있지만, 실제로는 더 본질적입니다.</p>
+<h3 id="task-resolution">모든 task가 같은 resolution 이득을 받는 것은 아니다<a class="headerlink" href="#task-resolution" title="Permanent link">&para;</a></h3>
+<p>histone mark처럼 assay 자체가 더 broad한 경우에는, target resolution을 더 세밀하게 가져갔을 때의 추가 이득이 상대적으로 크지 않을 수 있습니다. 실제로 본문과 Figure 7a에서 저자들은 1-bp target resolution이 overall best라고 설명하면서도, histone ChIP-seq correlation이나 contact map correlation은 target resolution 변화에 비교적 둔감하다고 보고합니다. 또한 variant effect prediction metric 역시 gene body나 exon처럼 더 넓은 영역에 걸쳐 효과를 집계하는 경우가 많아 resolution 변화에 상대적으로 robust했습니다. 따라서 이 결과의 핵심은 “모든 task를 반드시 동일한 해상도로 예측해야 한다”가 아니라, 1 bp supervision의 필요성과 이득이 task별로 다르다는 점에 있습니다.</p>
+<p>즉, AlphaGenome은 모든 modality를 하나의 공통 resolution에 억지로 맞추기보다, 각 assay의 label granularity와 예측 대상의 성격에 맞춰 output resolution을 다르게 두는 방향을 택합니다. Figure 1 기준으로도 RNA-seq, CAGE, PRO-cap, DNase, ATAC, splice site, splice junction, splice site usage는 1 bp, histone modification과 TF binding은 128 bp, contact map은 2,048 bp로 예측됩니다. 이 점에서 multi-resolution output은 단순한 계산 절약이 아니라, 각 task가 실제로 요구하는 supervision scale에 맞춘 설계라고 보는 편이 더 정확합니다.</p>
+<h2 id="5-distillation-compression-variant-robustness-student">5. Distillation은 단순한 compression이 아니라, variant robustness를 student에 이식하는 과정<a class="headerlink" href="#5-distillation-compression-variant-robustness-student" title="Permanent link">&para;</a></h2>
+<p>AlphaGenome의 distillation은 teacher ensemble을 student 하나로 압축하는 과정이지만, 논문이 실제로 하는 일은 그보다 조금 더 적극적입니다. pretraining 이후 all-fold model들은 distillation 단계의 teacher로 사용되고, student는 frozen teacher의 출력을 재현하도록 학습됩니다. 이때 입력은 단순한 원본 sequence만이 아니라 random shift, reverse complement 같은 augmentation, 그리고 mutation perturbation까지 포함합니다. Figure 1c는 이 점을 직접 보여주고, 본문 역시 distilled student가 improved robustness와 variant effect prediction accuracy를 갖는 single model instance라고 설명합니다.</p>
+<h3 id="mutation-distill">입력 mutation을 넣고 distill한다는 것의 의미<a class="headerlink" href="#mutation-distill" title="Permanent link">&para;</a></h3>
+<p>이 설정이 중요한 이유는, variant effect prediction이 본질적으로 서열이 조금 바뀌었을 때 model output이 어떻게 달라지는가를 묻는 문제이기 때문입니다. 그런 점에서 이 distillation은 teacher의 평균 prediction을 단순히 베끼는 과정이라기보다, sequence neighborhood에서 teacher가 보이는 반응 패턴까지 student에 옮기는 과정으로 읽을 수 있습니다. 실제로 저자들은 input sequence를 랜덤하게 mutation하지 않고 distillation했을 때 eQTL sign, eQTL causality, sQTL causality, splicing outlier에서 student 성능이 각각 −0.06, −0.01, −0.01, −0.015 떨어졌다고 보고합니다. 즉, 여기서 input perturbation은 부수적인 augmentation이 아니라, variant prediction 성능을 떠받치는 핵심 recipe 중 하나입니다.</p>
+<h3 id="_2">공학적으로 요약하자면<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>일반적인 distillation이 teacher의 pointwise response, 즉 f_teacher(x)를 student가 따라가게 만드는 설정에 가깝다면, AlphaGenome의 distillation은 perturbation된 입력을 함께 사용함으로써 x 주변 neighborhood에서의 local response까지 일부 전이시키는 방향으로 해석할 수 있습니다. student는 단지 더 작은 ensemble surrogate가 아니라, sequence perturbation에 대한 teacher의 반응을 더 잘 모사하도록 학습된 inference-efficient variant model에 가깝기 때문입니다.</p>
+<h2 id="6-multimodal-learning">6. Multimodal learning은 “편해서”가 아니라 실제로 도움이 된다<a class="headerlink" href="#6-multimodal-learning" title="Permanent link">&para;</a></h2>
+<p>AlphaGenome은 11 modality를 동시에 학습하는 Multi-task (general) model입니다. 하지만 논문 이 논문의 피겨 7에서는,  <strong>정말 multimodal learning이 도움이 되는가?</strong>를 ablation으로 확인했다는 것입니다. Figure 7d와 Supplementary Fig. 12의 메시지는 꽤 분명합니다.</p>
+<h3 id="_3">핵심 결과<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>fully multimodal model</strong>이 일반적으로 single-modality model보다 더 좋았습니다.</li>
+<li>다만 이 이점은 <strong>task-dependent</strong>였습니다.</li>
+<li>예를 들어 <strong>accessibility variant prediction</strong>은 accessibility-only 학습으로도 꽤 잘 되지만,</li>
+<li><strong>eQTL</strong> 같은 task는 full multimodal setting에서 더 큰 이득을 봅니다.</li>
+<li>single modality group을 빼도 성능 감소가 아주 크지 않은 경우가 있어, modality 사이의 <strong>redundancy</strong>도 어느 정도 보입니다.</li>
+<li>cumulative addition 실험에서는 variant effect task가 특히 <strong>expression + accessibility</strong>의 초기 추가에서 가장 큰 이득을 보는 경향이 있었습니다.</li>
+</ul>
+<h2 id="7-long-context-train-time">7. Long context는 train-time에 확보하는 것이 더 중요하다<a class="headerlink" href="#7-long-context-train-time" title="Permanent link">&para;</a></h2>
+<p>Figure 7b는 AlphaGenome에서 가장 실용적인 ablation 중 하나입니다. 결론은 생각보다 명확합니다.</p>
+<ul>
+<li><strong>1 Mb로 train하고 1 Mb로 infer</strong>할 때 가장 좋다.</li>
+<li>짧은 sequence로 train한 모델은, 나중에 inference 때 더 긴 context를 줘도 완전히 따라오지 못한다.</li>
+<li>반대로 <strong>1 Mb로 train한 모델</strong>은 inference 때 더 짧은 context를 써도 비교적 잘 버틴다.</li>
+</ul>
+<p>이 결과는 두 가지 의미를 가집니다.</p>
+<h3 id="1-internalized">1) 긴 문맥은 학습 단계에서 실제로 internalized되어야 한다<a class="headerlink" href="#1-internalized" title="Permanent link">&para;</a></h3>
+<p>단순히 inference 시점에 더 긴 sequence를 넣는다고 해서<br />
+모델이 긴 regulatory dependency를 “갑자기” 이해하게 되지는 않습니다.<br />
+즉, long context의 이점은 <strong>architecture가 허용한다</strong>는 것만으로는 부족하고,<br />
+<strong>training distribution 자체가 그 context를 포함해야</strong> 합니다.</p>
+<h3 id="2-serving">2) 한번 길게 학습해 두면 serving에서는 유연해진다<a class="headerlink" href="#2-serving" title="Permanent link">&para;</a></h3>
+<p>흥미로운 점은, 1-Mb-trained model이 shorter-context inference에서도 꽤 잘 작동한다는 것입니다.<br />
+이 말은 곧</p>
+<ul>
+<li>train-time에는 최대한 긴 context로 representation을 익혀 두고</li>
+<li>serve-time에는 latency가 급하면 더 짧은 context로 타협</li>
+</ul>
+<p>하는 식의 practical trade-off가 가능하다는 뜻입니다. 즉, Figure 7b는 <strong>“학습은 길게, 추론은 필요시 유연하게”</strong> 라는 운영 전략을 뒷받침해 줍니다.</p>
+<h2 id="8">8. 이 논문이 남기는 설계 법칙<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>Figure와 Supplementary Information을 묶어서 보면, AlphaGenome이 주는 engineering lesson은 꽤 선명합니다.</p>
+<h3 id="1-task">(1) 모든 task를 같은 출력 공간에 넣지 말 것<a class="headerlink" href="#1-task" title="Permanent link">&para;</a></h3>
+<p>1D track, 2D contact map, donor–acceptor pair는 문제의 topology가 다릅니다. shared representation &amp; backbone은 공유하되, <strong>output structure는 존중</strong>해야 합니다.</p>
+<h3 id="2-local-global">(2) local과 global을 같은 모듈 하나에 억지로 맡기지 말 것<a class="headerlink" href="#2-local-global" title="Permanent link">&para;</a></h3>
+<p>motif-scale localization과 enhancer-scale context는 서로 다른 계산 성질을 갖습니다. AlphaGenome은 convolution과 transformer를 섞어 이 문제를 해결합니다.</p>
+<h3 id="3-honest-evaluation-model-deployable-model">(3) honest evaluation model과 deployable model을 분리할 것<a class="headerlink" href="#3-honest-evaluation-model-deployable-model" title="Permanent link">&para;</a></h3>
+<p>fold-specific model은 generalization을 보기 좋고, distilled student는 serving하기 좋습니다. 두 목적을 하나의 artifact에 모두 강요하지 않는 설계가 중요합니다.</p>
+<h3 id="4-distillation-latency">(4) distillation은 latency 절감 이상의 역할을 할 수 있다<a class="headerlink" href="#4-distillation-latency" title="Permanent link">&para;</a></h3>
+<p>특히 variant effect처럼 input perturbation이 본질인 문제에서는 mutation-aware distillation이 <strong>robustness recipe</strong>가 될 수 있습니다.</p>
+<h3 id="5-multimodal-learning-integrative-task">(5) multimodal learning은 integrative task에서 특히 강하다<a class="headerlink" href="#5-multimodal-learning-integrative-task" title="Permanent link">&para;</a></h3>
+<p>expression, accessibility, splicing처럼 서로 다른 분자 readout이 함께 묶일 때 shared representation의 가치가 커집니다.</p>
+<h3 id="6-train">(6) 가능하면 train은 길게 하라<a class="headerlink" href="#6-train" title="Permanent link">&para;</a></h3>
+<p>긴 context의 이점은 inference 때 우연히 생기지 않습니다. 학습 단계에서부터 긴 dependency를 보게 해야 합니다.</p>
+<h2 id="_4">마무리<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>생물학적으로 보면 AlphaGenome은 regulatory code를 더 잘 푸는 모델이지만, ML 관점으로 보면 더 흥미로운 점은 따로 있습니다.</p>
+<p>이 모델은</p>
+<ul>
+<li><strong>긴 문맥</strong>을 보면서</li>
+<li><strong>아주 정밀한 위치 정보</strong>를 잃지 않고</li>
+<li><strong>서로 다른 형태의 출력</strong>을 함께 다루고</li>
+<li><strong>ensemble 수준의 지식</strong>을 student 하나로 옮겨</li>
+<li><strong>실제 variant serving</strong>까지 감당하는</li>
+</ul>
+<p>상당히 균형 잡힌 시스템 설계, Foundation model의 정석입니다.</p>
+<p>그래서 AlphaGenome에서 배울 포인트는 단순히 “genomics에서도 foundation model이 된다”가 아니라, <strong>long-context multimodal sequence model을 실제로 굴리려면 어떤 타협과 구조가 필요한가</strong>에 더 가깝습니다.</p>
+<h2 id="source-anchors">Source anchors<a class="headerlink" href="#source-anchors" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Main paper: <a href="https://www.nature.com/articles/s41586-025-10014-0">Advancing regulatory variant effect prediction with AlphaGenome</a></li>
+<li>특히 보면 좋은 부분:</li>
+<li><strong>Figure 1a–c</strong>: 전체 architecture, pretraining, distillation</li>
+<li><strong>Figure 7</strong>: resolution / context / distillation / multimodal ablation</li>
+<li><strong>Extended Data Fig. 1</strong>: encoder–transformer–decoder 내부 구조</li>
+<li><strong>Supplementary Information / Supplementary Fig. 12</strong>: modality 조합별 추가 실험</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
